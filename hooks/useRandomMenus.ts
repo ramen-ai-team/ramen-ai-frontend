@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { apiService } from "../lib/api-client";
 import { MenuItem } from "../types/api";
 
@@ -7,28 +7,28 @@ export const useRandomMenus = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    const fetchRandomMenus = async () => {
-      try {
-        setLoading(true);
-        const data = await apiService.getRandomMenus();
+  const fetchRandomMenus = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await apiService.getRandomMenus();
 
-        if (data && Array.isArray(data.menus)) {
-          setMenus(data.menus);
-        } else {
-          setError(new Error("Invalid data format received from API"));
-        }
-      } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error("Unknown error occurred"),
-        );
-      } finally {
-        setLoading(false);
+      if (data && Array.isArray(data.menus)) {
+        setMenus(data.menus);
+      } else {
+        setError(new Error("Invalid data format received from API"));
       }
-    };
-
-    fetchRandomMenus();
+    } catch (err) {
+      setError(
+        err instanceof Error ? err : new Error("Unknown error occurred"),
+      );
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { menus, loading, error };
+  useEffect(() => {
+    fetchRandomMenus();
+  }, [fetchRandomMenus]);
+
+  return { menus, loading, error, refetch: fetchRandomMenus };
 };

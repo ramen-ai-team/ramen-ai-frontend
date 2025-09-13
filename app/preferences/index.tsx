@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { useRandomMenus } from "hooks/useRandomMenus";
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
   ActivityIndicator,
   Image,
