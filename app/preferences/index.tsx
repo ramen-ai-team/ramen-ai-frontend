@@ -20,7 +20,7 @@ type CardDataType = {
 
 export default function Preferences() {
   const { menus, loading, error } = useRandomMenus();
-  const swiperRef = useRef<SwiperCardRefType>();
+  const swiperRef = useRef<SwiperCardRefType>(null);
   const renderCard = useCallback((item: CardDataType) => {
     return (
       <View className="flex-1 rounded-xl overflow-hidden bg-white shadow-lg">

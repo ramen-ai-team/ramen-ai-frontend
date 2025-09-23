@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 const API_URL =
   "https://ramen-ai-backend-service-943228427206.asia-northeast1.run.app/api/v1";
@@ -119,7 +119,7 @@ export const apiService = {
     } catch (error) {
       console.error("Error sending recommended menus:", error);
 
-      if (error.response) {
+      if (axios.isAxiosError(error) && error.response) {
         console.error("Error response data:", error.response.data);
         console.error("Error response status:", error.response.status);
         console.error("Error response headers:", error.response.headers);
