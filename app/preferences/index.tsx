@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { useRandomMenus } from "hooks/useRandomMenus";
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -20,7 +20,7 @@ type CardDataType = {
 
 export default function Preferences() {
   const { menus, loading, error } = useRandomMenus();
-  const swiperRef = useRef<SwiperCardRefType>();
+  const swiperRef = useRef<SwiperCardRefType>(null);
   const renderCard = useCallback((item: CardDataType) => {
     return (
       <View className="flex-1 rounded-xl overflow-hidden bg-white shadow-lg">
